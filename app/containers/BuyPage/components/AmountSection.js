@@ -203,6 +203,9 @@ class AmountSection extends Component<Props, State> {
         this.checkSwapStatusLoops.cancel();
         this.checkSwapStatusLoops = undefined;
       }
+
+      if (entity.get('status') === 'finished') return;
+
       this.checkSwapStatusLoops = new Loops(TIME_LOOP, dispatchLoadRecentSwaps);
       this.checkSwapStatusLoops.setup();
       const delay =
