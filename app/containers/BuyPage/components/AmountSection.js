@@ -138,6 +138,10 @@ type State = {
 };
 
 class AmountSection extends Component<Props, State> {
+  checkSwapStatusLoops: Object | null;
+
+  idHandleTimeoutError: number;
+
   static defaultProps = {};
 
   constructor(props) {
@@ -189,7 +193,7 @@ class AmountSection extends Component<Props, State> {
   };
 
   componentDidUpdate(prevProps) {
-    const { swapsList, swapsEntities, dispatchLoadRecentSwaps } = this.props;
+    const { swapsList, swapsEntities } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
     if (swapsList.size === 1) {
       const entity = swapsEntities.get(swapsList.get(0));
@@ -199,24 +203,17 @@ class AmountSection extends Component<Props, State> {
         oldEntity.get('sentflags').size === entity.get('sentflags').size
       )
         return;
-      if (this.checkSwapStatusLoops) {
-        this.checkSwapStatusLoops.cancel();
-        this.checkSwapStatusLoops = undefined;
+      this.clearCheckSwapStatusLoops();
+      if (entity.get('status') === 'finished') {
+        return this.clearHandleTimeoutError();
       }
-
-      if (entity.get('status') === 'finished') return;
-
-      this.checkSwapStatusLoops = new Loops(TIME_LOOP, dispatchLoadRecentSwaps);
-      this.checkSwapStatusLoops.setup();
+      this.setupCheckSwapStatusLoops();
       const delay =
         (entity.get('expiration') - Date.now() / 1000) * 1000 + TIME_LOOP;
-      if (delay < 0) this.timeout();
+      if (delay < 0) this.handleTimeoutError();
       else {
-        if (this.idClearState) {
-          clearTimeout(this.idClearState);
-          this.idClearState = undefined;
-        }
-        this.idClearState = setTimeout(this.timeout, delay);
+        this.clearHandleTimeoutError();
+        this.setupHandleTimeoutError(delay);
       }
     }
   }
@@ -224,19 +221,37 @@ class AmountSection extends Component<Props, State> {
   componentWillUnmount = () => {
     if (this.checkSwapStatusLoops) {
       this.checkSwapStatusLoops.cancel();
-      this.checkSwapStatusLoops = undefined;
+      this.checkSwapStatusLoops = null;
     }
-    if (this.idClearState) {
-      clearTimeout(this.idClearState);
-      this.idClearState = undefined;
+    this.clearHandleTimeoutError();
+  };
+
+  clearCheckSwapStatusLoops = () => {
+    if (this.checkSwapStatusLoops) {
+      this.checkSwapStatusLoops.cancel();
+      this.checkSwapStatusLoops = null;
     }
   };
 
-  timeout = () => {
-    if (this.checkSwapStatusLoops) {
-      this.checkSwapStatusLoops.cancel();
-      this.checkSwapStatusLoops = undefined;
+  setupCheckSwapStatusLoops = () => {
+    const { dispatchLoadRecentSwaps } = this.props;
+    this.checkSwapStatusLoops = new Loops(TIME_LOOP, dispatchLoadRecentSwaps);
+    this.checkSwapStatusLoops.setup();
+  };
+
+  clearHandleTimeoutError = () => {
+    if (this.idHandleTimeoutError) {
+      clearTimeout(this.idHandleTimeoutError);
+      this.idHandleTimeoutError = undefined;
     }
+  };
+
+  setupHandleTimeoutError = delay => {
+    this.idHandleTimeoutError = setTimeout(this.handleTimeoutError, delay);
+  };
+
+  handleTimeoutError = () => {
+    this.clearCheckSwapStatusLoops();
     const { dispatchLoadRecentSwapsError } = this.props;
     dispatchLoadRecentSwapsError('Timeout');
   };
@@ -496,7 +511,9 @@ class AmountSection extends Component<Props, State> {
             {!swapsLoading &&
               swapsError && <React.Fragment>Cancel</React.Fragment>}
             {!swapsLoading &&
-              !swapsError && <React.Fragment>Done</React.Fragment>}
+              !swapsError && (
+                <React.Fragment>Press here to make another swap</React.Fragment>
+              )}
           </BuyButton>
         </Grid>
       </Grid>
