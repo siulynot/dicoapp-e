@@ -27,5 +27,5 @@ export const STATE_SWAPS = [
   'Bob Deposit',
   'Alice Payment',
   'Bob Payment',
-  'Alice Spend'
+  'Swap Finished' // 'Alice Spend'
 ];
