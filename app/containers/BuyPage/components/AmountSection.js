@@ -99,6 +99,13 @@ const styles = () => ({
     transform: 'translate(-50%, -50%)',
     fontSize: 25,
     width: 100
+  },
+
+  amountform__warning: {
+    backgroundColor: '#ffa000',
+    color: '#fff',
+    borderRadius: 4,
+    padding: '6px 24px'
   }
 });
 
@@ -138,9 +145,10 @@ type State = {
 };
 
 class AmountSection extends Component<Props, State> {
+  // eslint-disable-next-line flowtype/no-weak-types
   checkSwapStatusLoops: Object | null;
 
-  idHandleTimeoutError: number;
+  idHandleTimeoutError: TimeoutID | null;
 
   static defaultProps = {};
 
@@ -242,7 +250,7 @@ class AmountSection extends Component<Props, State> {
   clearHandleTimeoutError = () => {
     if (this.idHandleTimeoutError) {
       clearTimeout(this.idHandleTimeoutError);
-      this.idHandleTimeoutError = undefined;
+      this.idHandleTimeoutError = null;
     }
   };
 
@@ -328,14 +336,8 @@ class AmountSection extends Component<Props, State> {
 
   clickProcessButton = (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
-    // const { swapsError, dispatchRemoveSwapsData } = this.props;
     const { dispatchRemoveSwapsData } = this.props;
     dispatchRemoveSwapsData();
-    // if(swapsError) {
-
-    // } else {
-
-    // }
   };
 
   renderForm = () => {
@@ -460,6 +462,12 @@ class AmountSection extends Component<Props, State> {
           position: 'relative'
         }}
       >
+        {/* {swapsLoading && (
+          <Grid item xs={12} className={classes.amountform__itemCenter}>
+            <Typography gutterBottom className={classes.amountform__warning}>The swap is running, don't exit the application</Typography>
+          </Grid>
+        )} */}
+
         <Grid item xs={6} className={classes.amountform__itemCenter}>
           <CoinSelectable
             icon={getCoinIcon(entity.get('alice'))}
