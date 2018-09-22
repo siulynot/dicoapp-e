@@ -52,10 +52,8 @@ export function* loadPrice(coin, userpass) {
   let bestprice = 0;
   try {
     const result = yield api.orderbook(getprices);
-    let ask = null;
-    if (ask = result.asks.find(e => e.pubkey === bob)) {
-      debug('found dico bob order');
-    } else {
+    const ask = result.asks.find(e => e.pubkey === bob);
+    if (!ask) {
       throw new Error('dICO Bob is offline!');
     }
 
@@ -111,7 +109,7 @@ export function* loadPricesProcess() {
     const userpass = user.get('userpass');
     const balance = yield select(makeSelectBalanceList());
 
-    const tokenconfig = config.get('marketmaker.tokenconfig');
+    // const tokenconfig = config.get('marketmaker.tokenconfig');
 
     const requests = [];
     for (let i = 0; i < balance.size; i += 1) {
