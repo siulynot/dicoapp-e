@@ -44,13 +44,13 @@ export function* loadCoinBalanceProcess(coin, address, userpass) {
     };
     const data = yield call([api, 'getBalance'], params);
     data.address = address;
-    const utxo = yield call([api, 'listUnspent'], params);
+    // const utxo = yield call([api, 'listUnspent'], params);
     yield put(
       loadCoinBalanceSuccess({
         coin,
         address,
-        balance: Number(data.balance),
-        utxo
+        balance: Number(data.balance)
+        // utxo
       })
     );
     debug(`load balance done ${coin}`);
