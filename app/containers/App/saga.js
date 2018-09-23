@@ -36,7 +36,7 @@ export function* logoutFlow() {
 
 export function* loadCoinBalanceProcess(coin, address, userpass) {
   try {
-    debug(`load coin balance process running${coin}`);
+    debug(`load coin balance process running ${coin}`);
     const params = {
       userpass,
       coin,
@@ -61,7 +61,7 @@ export function* loadCoinBalanceProcess(coin, address, userpass) {
       coin: data.coin
     };
   } catch (err) {
-    debug(`loadCoinBalanceProcess fail ${coin}: ${err.message}`);
+    debug(`load coin balance process fail ${coin}: ${err.message}`);
     return false;
   }
 }
