@@ -35,6 +35,7 @@ import {
   makeSelectSwapsEntities
 } from '../selectors';
 import loadBuyCoinProcess from './load-buy-coin-process';
+import takeFirst from './take-first';
 
 const debug = require('debug')('dicoapp:containers:BuyPage:saga');
 
@@ -226,8 +227,8 @@ export function* loadRecentSwapsProcess() {
  * Root saga manages watcher lifecycle
  */
 export default function* buyData() {
+  yield takeFirst(LOAD_BUY_COIN, loadBuyCoinProcess);
   yield takeLatest(LOAD_PRICES, loadPricesProcess);
-  yield takeLatest(LOAD_BUY_COIN, loadBuyCoinProcess);
   yield takeLatest(LOAD_RECENT_SWAPS, loadRecentSwapsProcess);
   yield takeEvery(LOAD_PRICE, loadPriceProcess);
 }
