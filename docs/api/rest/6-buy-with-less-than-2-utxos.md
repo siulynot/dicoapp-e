@@ -1,5 +1,22 @@
 - **URL**
 
+  /listunspent
+
+- **Success Response:**
+
+```js
+[
+  {
+    tx_hash: 'db3394c1e25e5b022d2568a089ae063fd23729813588280a080749fbb694b0e2',
+    tx_pos: 0,
+    height: 44637,
+    value: 9899000000
+  }
+];
+```
+
+- **URL**
+
   /buy
 
 - **Success Response:**
