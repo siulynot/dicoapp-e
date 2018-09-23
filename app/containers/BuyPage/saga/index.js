@@ -4,42 +4,44 @@ import {
   put,
   select,
   call,
-  all
+  all,
+  cancelled
 } from 'redux-saga/effects';
 import {
-  makeSelectCurrentUser,
-  makeSelectBalanceEntities
-} from '../App/selectors';
-import { loadSwapSuccess } from '../App/actions';
-import getConfig from '../../utils/config';
-import api from '../../utils/barter-dex-api';
+  makeSelectCurrentUser
+  // makeSelectBalanceEntities
+} from '../../App/selectors';
+import { loadSwapSuccess } from '../../App/actions';
+import getConfig from '../../../utils/config';
+import api from '../../../utils/barter-dex-api';
 import {
   LOAD_PRICES,
   LOAD_PRICE,
   LOAD_BUY_COIN,
   LOAD_RECENT_SWAPS
-} from './constants';
+} from '../constants';
 import {
   loadPricesSuccess,
   loadPricesError,
   loadBestPrice,
-  loadBuyCoinSuccess,
-  loadBuyCoinError,
+  // loadBuyCoinSuccess,
+  // loadBuyCoinError,
   loadRecentSwapsCoin,
   loadRecentSwapsError
-} from './actions';
+} from '../actions';
 import {
   makeSelectBalanceList,
-  makeSelectPricesEntities,
+  // makeSelectPricesEntities,
   makeSelectSwapsEntities
-} from './selectors';
+} from '../selectors';
+import loadBuyCoinProcess from './load-buy-coin-process';
 
 const debug = require('debug')('dicoapp:containers:BuyPage:saga');
 
 const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');
 const numcoin = 100000000;
-const txfee = 10000;
+// const txfee = 10000;
 
 export function* loadPrice(coin, userpass) {
   const getprices = {
@@ -143,93 +145,38 @@ export function* loadPriceProcess({ payload }) {
   }
 }
 
-export function* loadBuyCoinProcess({ payload }) {
+export function* checkSwap(userpass, requestid, quoteid, isPending) {
   try {
-    // step one: load user data
-    const user = yield select(makeSelectCurrentUser());
-    if (!user) {
-      throw new Error('not found user');
-    }
-    const { basecoin, paymentcoin, amount } = payload;
-
-    const userpass = user.get('userpass');
-    // const coins = user.get('coins');
-    // const smartaddress = coins.find(c => c.get('coin') === paymentcoin);
-
-    // step two: load balance
-    const balances = yield select(makeSelectBalanceEntities());
-    const balance = balances.find(c => c.get('coin') === paymentcoin);
-
-    // step three: load best price
-    const prices = yield select(makeSelectPricesEntities());
-    const price = prices.find(c => c.get('rel') === paymentcoin);
-
-    // step four: check balance
-    const relvolume = Number(amount * price.get('price'));
-    if (
-      relvolume * numcoin + txfee >=
-      Number(balance.get('balance') * numcoin).toFixed(0)
-    ) {
-      throw new Error('Not enough balance!');
-    }
-
-    // step one: get listUnspent data
-    // const unspent = yield api.listUnspent({
-    //   userpass,
-    //   coin: paymentcoin,
-    //   address: smartaddress.get('smartaddress')
-    // });
-    // console.log('loadBuyCoinProcess', unspent);
-
-    // step xxx: buy
-    const buyparams = {
+    const swapelem = {
       userpass,
-      base: basecoin,
-      rel: paymentcoin,
-      relvolume: relvolume.toFixed(8),
-      price: price.get('bestPrice').toFixed(8)
+      requestid,
+      quoteid
     };
 
-    const result = yield api.buy(buyparams);
-    if (result.pending) {
-      return yield put(loadBuyCoinSuccess(result.pending));
+    const swapstatusResult = yield call([api, 'swapstatus'], swapelem);
+
+    yield put(loadRecentSwapsCoin(swapstatusResult));
+
+    if (isPending && swapstatusResult.status === 'finished') {
+      yield put(
+        loadSwapSuccess([
+          {
+            coin: swapstatusResult.bob,
+            value: swapstatusResult.srcamount
+          },
+          {
+            coin: swapstatusResult.alice,
+            value: 0 - swapstatusResult.destamount
+          }
+        ])
+      );
     }
-    if (result.error) {
-      return yield put(loadBuyCoinError(result.error));
+    return true;
+  } finally {
+    if (yield cancelled()) {
+      console.log('Sync cancelled!');
     }
-  } catch (err) {
-    // FIXME: handling error
-    return yield put(loadBuyCoinError(err.message));
   }
-}
-
-export function* checkSwap(userpass, requestid, quoteid, isPending) {
-  const swapelem = {
-    userpass,
-    requestid,
-    quoteid
-  };
-
-  const swapstatusResult = yield call([api, 'swapstatus'], swapelem);
-
-  yield put(loadRecentSwapsCoin(swapstatusResult));
-
-  if (isPending && swapstatusResult.status === 'finished') {
-    yield put(
-      loadSwapSuccess([
-        {
-          coin: swapstatusResult.bob,
-          value: swapstatusResult.srcamount
-        },
-        {
-          coin: swapstatusResult.alice,
-          value: 0 - swapstatusResult.destamount
-        }
-      ])
-    );
-  }
-
-  return true;
 }
 
 export function* loadRecentSwapsProcess() {
@@ -268,6 +215,10 @@ export function* loadRecentSwapsProcess() {
   } catch (err) {
     // FIXME: handling error
     return yield put(loadRecentSwapsError(err.message));
+  } finally {
+    if (yield cancelled()) {
+      console.log('Sync cancelled!');
+    }
   }
 }
 
