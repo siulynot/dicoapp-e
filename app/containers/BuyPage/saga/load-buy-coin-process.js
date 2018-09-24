@@ -73,7 +73,7 @@ export default function* loadBuyCoinProcess({ payload }) {
         if (!isSplittingTheFund) {
           swal(
             'Splitting Procedure',
-            'You will need at least 2 UTXOs to perform your swap. We are trying to split it for you. Dont turn of the application.'
+            'You will need at least 2 UTXOs to perform your swap. We are trying to split it for you. Dont turn off the application.'
           );
           const buyparams = {
             userpass,
