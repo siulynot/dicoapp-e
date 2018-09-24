@@ -18,9 +18,8 @@ const debug = require('debug')(
 const numcoin = 100000000;
 const txfee = 10000;
 const intervalTime = 45 * 1000; // 45s
-// const intervalTime = 5 * 1000; // 5s
 
-export default function* loadBuyCoinProcess({ payload }) {
+export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
   try {
     // step one: load user data
     const user = yield select(makeSelectCurrentUser());
@@ -83,6 +82,7 @@ export default function* loadBuyCoinProcess({ payload }) {
             price: price.get('bestPrice').toFixed(8)
           };
           const result = yield call([api, 'buy'], buyparams);
+
           debug('UTXO autosplit TX INFO:', result);
           if (result.error) {
             throw new Error(result.error);
@@ -110,9 +110,10 @@ export default function* loadBuyCoinProcess({ payload }) {
           return yield put(loadBuyCoinSuccess(result.pending));
         }
       }
-      yield call(delay, intervalTime);
+      yield call(delay, time);
     }
   } catch (err) {
+    console.log(err);
     return yield put(loadBuyCoinError(err.message));
   } finally {
     if (yield cancelled()) {
