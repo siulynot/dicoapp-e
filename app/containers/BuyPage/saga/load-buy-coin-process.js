@@ -16,7 +16,7 @@ const debug = require('debug')(
 
 const numcoin = 100000000;
 const txfee = 10000;
-const intervalTime = 5 * 1000; // 5s
+const intervalTime = 45 * 1000; // 45s
 
 export default function* loadBuyCoinProcess({ payload }) {
   try {
