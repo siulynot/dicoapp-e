@@ -15,7 +15,7 @@ import takeFirst from './take-first';
  */
 export default function* buyData() {
   yield takeLatest(LOAD_PRICES, loadPricesProcess);
-  yield takeLatest(LOAD_RECENT_SWAPS, loadRecentSwapsProcess);
+  yield takeFirst(LOAD_RECENT_SWAPS, loadRecentSwapsProcess);
   yield takeEvery(LOAD_PRICE, loadPriceProcess);
   yield takeFirst(LOAD_BUY_COIN, loadBuyCoinProcess);
 }

@@ -1,7 +1,7 @@
 import { put, all, call, cancelled, select } from 'redux-saga/effects';
 import api from '../../../utils/barter-dex-api';
 import { makeSelectCurrentUser } from '../../App/selectors';
-import { loadSwapSuccess } from '../../App/actions';
+// import { loadSwapSuccess } from '../../App/actions';
 import { loadRecentSwapsCoin, loadRecentSwapsError } from '../actions';
 import { makeSelectSwapsEntities } from '../selectors';
 
@@ -22,18 +22,19 @@ export function* checkSwap(userpass, requestid, quoteid, isPending) {
     yield put(loadRecentSwapsCoin(swapstatusResult));
 
     if (isPending && swapstatusResult.status === 'finished') {
-      yield put(
-        loadSwapSuccess([
-          {
-            coin: swapstatusResult.bob,
-            value: swapstatusResult.srcamount
-          },
-          {
-            coin: swapstatusResult.alice,
-            value: 0 - swapstatusResult.destamount
-          }
-        ])
-      );
+      console.log(isPending);
+      //   yield put(
+      //     loadSwapSuccess([
+      //       {
+      //         coin: swapstatusResult.bob,
+      //         value: swapstatusResult.srcamount
+      //       },
+      //       {
+      //         coin: swapstatusResult.alice,
+      //         value: 0 - swapstatusResult.destamount
+      //       }
+      //     ])
+      //   );
     }
     return true;
   } finally {

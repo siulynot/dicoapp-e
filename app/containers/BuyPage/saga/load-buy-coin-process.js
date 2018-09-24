@@ -9,6 +9,7 @@ import {
 } from '../../App/selectors';
 import { loadBuyCoinError, loadBuyCoinSuccess } from '../actions';
 import { makeSelectPricesEntities } from '../selectors';
+import { APPROPRIATE_ERROR_UTXOS } from '../constants';
 
 const debug = require('debug')(
   'dicoapp:containers:BuyPage:saga:load-buy-coin-process'
@@ -17,6 +18,7 @@ const debug = require('debug')(
 const numcoin = 100000000;
 const txfee = 10000;
 const intervalTime = 45 * 1000; // 45s
+// const intervalTime = 5 * 1000; // 5s
 
 export default function* loadBuyCoinProcess({ payload }) {
   try {
@@ -64,7 +66,7 @@ export default function* loadBuyCoinProcess({ payload }) {
         coin: paymentcoin,
         address: smartaddress.get('smartaddress')
       });
-      console.log(unspent);
+
       if (unspent.length < 2) {
         // splitting utxos
         debug('splitting utxos');
@@ -99,6 +101,9 @@ export default function* loadBuyCoinProcess({ payload }) {
 
         const result = yield call([api, 'buy'], buyparams);
         if (result.error) {
+          if (result.error === APPROPRIATE_ERROR_UTXOS) {
+            throw new Error('Please try a different amount to pay (1/2 or 2x)');
+          }
           throw new Error(result.error);
         }
         if (result.pending) {
