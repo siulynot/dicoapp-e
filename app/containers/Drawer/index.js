@@ -14,15 +14,13 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-// import DashboardIcon from '@material-ui/icons/Dashboard';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import HomeIcon from '@material-ui/icons/Home';
 import { withStyles } from '@material-ui/core/styles';
-// FIXME: this is a quick way. We should move this function to layout
-import { showLogoutDialog } from '../../containers/LogoutDialog/actions';
+import { showLogoutDialog } from '../LogoutDialog/actions';
 import routes from '../../constants/routes.json';
 
-const debug = require('debug')('dicoapp:components:Drawer');
+const debug = require('debug')('dicoapp:containers:Drawer');
 
 const drawerWidth = 240;
 

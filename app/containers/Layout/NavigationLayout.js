@@ -4,12 +4,8 @@ import PropTypes from 'prop-types';
 // import { setWindowBounds } from 'electron-util';
 import { withStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
-
 // import { minWindowSize } from '../../config/config-default';
-import DICDrawer from '../../components/Drawer';
-// import routes from '../../constants/routes.json';
+import DICDrawer from '../Drawer';
 
 const debug = require('debug')('dicoapp:containers:layout:NavigationLayout');
 
@@ -22,8 +18,6 @@ const debug = require('debug')('dicoapp:containers:layout:NavigationLayout');
 //   setWindowBounds(size, { animated: true });
 //   win.center();
 // };
-
-// const drawerWidth = 240;
 
 const styles = theme => ({
   content: {
