@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import type { Dispatch } from 'redux';
 import { withRouter } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -169,7 +170,7 @@ class DICDrawer extends Component<Props, State> {
 
 DICDrawer.displayName = 'DICDrawer';
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch<Object>) {
   return {
     dispatchShowLogoutDialog: () => dispatch(showLogoutDialog())
   };
