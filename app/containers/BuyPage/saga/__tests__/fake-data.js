@@ -458,6 +458,11 @@ export const buy2 = {
   uuid: 'bc5e1509b2aea898b8dff71ecc3fa7d5bc7c361fb14187fe9bc06916fae63811'
 };
 
+export const buyAppropriateError = {
+  error:
+    'cant find a deposit that is close enough in size. make another deposit that is just a bit larger than what you want to trade'
+};
+
 it('containers/BuyPage/saga/fake-data', () => {
   expect(1).toEqual(1);
 });

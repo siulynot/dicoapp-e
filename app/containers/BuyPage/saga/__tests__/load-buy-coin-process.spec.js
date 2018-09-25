@@ -8,38 +8,40 @@ import data, {
   listunspentstep1,
   listunspentstep2,
   buy1,
-  buy2
+  buy2,
+  buyAppropriateError
 } from './fake-data';
 
-let listunspentstep = 0;
-let buystep = 0;
-
 const TEST_URL = 'http://127.0.0.1:7783';
-nock(TEST_URL)
-  .persist()
-  .post('/', () => true)
-  .reply(200, (uri, { method }, cb) => {
-    if (method === 'listunspent' && listunspentstep === 0) {
-      listunspentstep = 1;
-      cb(null, listunspentstep1);
-    } else if (method === 'listunspent' && listunspentstep === 1) {
-      listunspentstep = 2;
-      cb(null, listunspentstep2);
-    }
-
-    if (method === 'buy' && buystep === 0) {
-      buystep = 1;
-      cb(null, buy1);
-    } else if (method === 'buy' && buystep === 1) {
-      buystep = 2;
-      cb(null, buy2);
-    }
-  });
 
 describe('containers/BuyPage/saga/load-buy-coin-process', () => {
   it(
-    'should loadPrice should create loadPrice action',
+    'should handle loadBuyCoinProcess correctly',
     async done => {
+      let listunspentstep = 0;
+      let buystep = 0;
+      // const scope = nock(TEST_URL)
+      nock(TEST_URL)
+        .persist()
+        .post('/', () => true)
+        .reply(200, (uri, { method }, cb) => {
+          if (method === 'listunspent' && listunspentstep === 0) {
+            listunspentstep = 1;
+            cb(null, listunspentstep1);
+          } else if (method === 'listunspent' && listunspentstep === 1) {
+            listunspentstep = 2;
+            cb(null, listunspentstep2);
+          }
+
+          if (method === 'buy' && buystep === 0) {
+            buystep = 1;
+            cb(null, buy1);
+          } else if (method === 'buy' && buystep === 1) {
+            buystep = 2;
+            cb(null, buy2);
+          }
+        });
+
       const dispatched = [];
 
       const saga = await runSaga(
@@ -82,6 +84,71 @@ describe('containers/BuyPage/saga/load-buy-coin-process', () => {
           }
         }
       ]);
+
+      nock.cleanAll();
+      nock.enableNetConnect();
+      done();
+    },
+    90 * 1000
+  );
+
+  it(
+    'should dispatch appropriate error when handle loadBuyCoinProcess',
+    async done => {
+      let listunspentstep = 0;
+      let buystep = 0;
+      nock(TEST_URL)
+        .persist()
+        .post('/', () => true)
+        .reply(200, (uri, { method }, cb) => {
+          if (method === 'listunspent' && listunspentstep === 0) {
+            listunspentstep = 1;
+            cb(null, listunspentstep1);
+          } else if (method === 'listunspent' && listunspentstep === 1) {
+            listunspentstep = 2;
+            cb(null, listunspentstep2);
+          }
+
+          if (method === 'buy' && buystep === 0) {
+            buystep = 1;
+            cb(null, buy1);
+          } else if (method === 'buy' && buystep === 1) {
+            buystep = 2;
+            cb(null, buyAppropriateError);
+          }
+        });
+
+      const dispatched = [];
+
+      const saga = await runSaga(
+        {
+          dispatch: action => dispatched.push(action),
+          getState: () => fromJS(data)
+        },
+        loadBuyCoinProcess,
+        {
+          payload: {
+            basecoin: 'COQUI',
+            paymentcoin: 'BEER',
+            amount: 10
+          },
+          time: 0
+        }
+      ).done;
+
+      expect(saga).toEqual(1);
+      expect(dispatched).toEqual([
+        {
+          error: {
+            message: 'Please try a different amount to pay (1/2 or 2x)'
+          },
+          type: 'dicoapp/BuyPage/LOAD_BUY_COIN_ERROR'
+        }
+      ]);
+      done();
+
+      nock.cleanAll();
+      nock.enableNetConnect();
       done();
     },
     90 * 1000

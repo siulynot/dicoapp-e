@@ -113,7 +113,6 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
       yield call(delay, time);
     }
   } catch (err) {
-    console.log(err);
     return yield put(loadBuyCoinError(err.message));
   } finally {
     if (yield cancelled()) {
