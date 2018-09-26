@@ -19,10 +19,12 @@ const debug = require('debug')('dicoapp:containers:layout:NavigationLayout');
 //   win.center();
 // };
 
-const styles = theme => ({
+// const styles = theme => ({
+const styles = () => ({
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    // backgroundColor: theme.palette.background.default,
+    backgroundColor: '#fff',
     // padding: theme.spacing.unit * 3,
     marginLeft: 72,
     // marginTop: 64,
