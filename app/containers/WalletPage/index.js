@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 // import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+// import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -28,10 +28,7 @@ type Props = {
 // const styles = theme => ({
 const styles = () => ({
   container: {
-    padding: 24
-  },
-
-  containerFirst: {
+    padding: 24,
     marginTop: 65
   },
 
@@ -68,23 +65,20 @@ class WalletPage extends Component<Props> {
         <Grid
           container
           spacing={0}
-          className={classNames(classes.container, classes.containerFirst)}
+          className={classNames(classes.container, classes.container)}
         >
           <Grid item xs={12} className={classes.containerSection}>
-            <CardContent className={classes.cardContent}>
-              <Typography
-                variant="title"
-                gutterBottom
-                className={classes.cardContent__title}
-              >
-                Overview
-              </Typography>
-            </CardContent>
+            <Typography
+              variant="title"
+              gutterBottom
+              className={classes.cardContent__title}
+            >
+              Overview
+            </Typography>
           </Grid>
+          <Overview />
+          <Transactions />
         </Grid>
-
-        <Overview className={classes.container} />
-        <Transactions className={classes.container} />
       </React.Fragment>
     );
   }
