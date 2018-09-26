@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { PureComponent } from 'react';
+import type { ChildrenArray } from 'react';
 // import { remote } from 'electron';
 // import { setWindowBounds } from 'electron-util';
 import { withStyles } from '@material-ui/core/styles';
@@ -46,24 +47,47 @@ const styles = () => ({
   }
 });
 
-class NavigationLayout extends Component {
+type Props = {
+  background?: string,
+  // eslint-disable-next-line flowtype/no-weak-types
+  classes: Object,
+  // eslint-disable-next-line flowtype/no-weak-types
+  children: ChildrenArray<any>
+};
+
+class NavigationLayout extends PureComponent<Props> {
   // constructor(props) {
   //   super(props);
   //   setAppWindowBounds();
   // }
 
+  static defaultProps = {
+    background: '#fff'
+  };
+
   render() {
     debug(`render`);
 
-    // eslint-disable-next-line react/prop-types
-    const { children, classes } = this.props;
+    const { background, children, classes } = this.props;
 
     return (
       <React.Fragment>
-        <aside className={classes.dicoDrawer}>
+        <aside
+          className={classes.dicoDrawer}
+          style={{
+            background
+          }}
+        >
           <DICDrawer />
         </aside>
-        <main className={classes.content}>{children}</main>
+        <main
+          className={classes.content}
+          style={{
+            background
+          }}
+        >
+          {children}
+        </main>
         {/* <div className={classes.root}> */}
         {/* <DICTypography> */}
         {/* <header className="mdc-toolbar mdc-toolbar--fixed fl-empty-layout__header"> */}
@@ -79,12 +103,6 @@ class NavigationLayout extends Component {
     );
   }
 }
-
-NavigationLayout.propTypes = {
-  children: PropTypes.node.isRequired
-};
-
-NavigationLayout.defaultProps = {};
 
 NavigationLayout.displayName = 'NavigationLayout';
 

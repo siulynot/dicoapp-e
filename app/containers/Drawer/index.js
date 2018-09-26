@@ -43,7 +43,8 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     }),
-    borderRight: 'none'
+    borderRight: 'none',
+    background: 'transparent'
   },
 
   drawerPaperClose: {
@@ -107,6 +108,8 @@ type State = {
 };
 
 class DICDrawer extends Component<Props, State> {
+  static defaultProps = {};
+
   state = {
     anchor: 'left'
   };

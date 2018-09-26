@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+// import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -27,8 +28,26 @@ type Props = {
 // const styles = theme => ({
 const styles = () => ({
   container: {
-    marginTop: 65,
     padding: 24
+  },
+
+  containerFirst: {
+    marginTop: 65
+  },
+
+  containerSection: {
+    paddingBottom: 30
+  },
+
+  cardContent: {
+    position: 'relative',
+    paddingTop: 0,
+    paddingLeft: 0,
+    paddingRight: 0
+  },
+
+  cardContent__title: {
+    marginBottom: 25
   }
 });
 
@@ -45,15 +64,22 @@ class WalletPage extends Component<Props> {
     return (
       <React.Fragment>
         <MDCAppBar title="Wallet" />
-        <Grid container spacing={0} className={classes.container}>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Typography variant="title" gutterBottom>
-                  Overview
-                </Typography>
-              </CardContent>
-            </Card>
+
+        <Grid
+          container
+          spacing={0}
+          className={classNames(classes.container, classes.containerFirst)}
+        >
+          <Grid item xs={12} className={classes.containerSection}>
+            <CardContent className={classes.cardContent}>
+              <Typography
+                variant="title"
+                gutterBottom
+                className={classes.cardContent__title}
+              >
+                Overview
+              </Typography>
+            </CardContent>
           </Grid>
         </Grid>
 
@@ -74,7 +100,7 @@ const WalletPageWapper = compose(
 )(WalletPage);
 
 const Index = () => (
-  <NavigationLayout>
+  <NavigationLayout background="#eeeeee">
     <ErrorBoundary>
       <WalletPageWapper />
     </ErrorBoundary>
