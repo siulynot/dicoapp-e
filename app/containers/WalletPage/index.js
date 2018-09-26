@@ -33,7 +33,7 @@ const styles = () => ({
   },
 
   containerSection: {
-    paddingBottom: 30
+    paddingBottom: 25
   },
 
   cardContent: {
@@ -41,10 +41,6 @@ const styles = () => ({
     paddingTop: 0,
     paddingLeft: 0,
     paddingRight: 0
-  },
-
-  cardContent__title: {
-    marginBottom: 25
   }
 });
 
@@ -68,11 +64,7 @@ class WalletPage extends Component<Props> {
           className={classNames(classes.container, classes.container)}
         >
           <Grid item xs={12} className={classes.containerSection}>
-            <Typography
-              variant="title"
-              gutterBottom
-              className={classes.cardContent__title}
-            >
+            <Typography variant="title" gutterBottom>
               Overview
             </Typography>
           </Grid>
