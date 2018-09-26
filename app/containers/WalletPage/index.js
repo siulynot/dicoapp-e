@@ -7,12 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-
 import injectReducer from '../../utils/inject-reducer';
 import injectSaga from '../../utils/inject-saga';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import MDCAppBar from '../../components/AppBar';
 import { NavigationLayout } from '../Layout';
 
 import Overview from './components/Overview';
@@ -29,6 +27,7 @@ type Props = {
 // const styles = theme => ({
 const styles = () => ({
   container: {
+    marginTop: 65,
     padding: 24
   }
 });
@@ -45,13 +44,7 @@ class WalletPage extends Component<Props> {
 
     return (
       <React.Fragment>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Typography variant="title" color="inherit">
-              Wallet
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <MDCAppBar title="Wallet" />
         <Grid container spacing={0} className={classes.container}>
           <Grid item xs={12}>
             <Card>
