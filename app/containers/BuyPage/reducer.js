@@ -140,10 +140,6 @@ const buyReducer = handleActions(
       // step two: update entities
       let entities = state.getIn(['swaps', 'entities']);
       let entity = entities.get(uuid);
-      if (entity.get('status') === 'finished') {
-        // NOTE: stop update when a swap was finished
-        return state;
-      }
       if (!entity) {
         // set new
         entity = fromJS({
@@ -159,6 +155,9 @@ const buyReducer = handleActions(
           sentflags,
           status
         });
+      } else if (entity.get('status') === 'finished') {
+        // NOTE: stop update when a swap was finished
+        return state;
       } else {
         // update
         // sentflags
@@ -205,7 +204,7 @@ const buyReducer = handleActions(
       // step one: find entity
       let entities = state.getIn(['swaps', 'entities']);
       let entity = entities.get(uuid);
-      if (entity.get('status') === 'finished') {
+      if (entity && entity.get('status') === 'finished') {
         // NOTE: stop update when a swap was finished
         return state;
       }
