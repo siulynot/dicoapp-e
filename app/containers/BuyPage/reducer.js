@@ -140,6 +140,10 @@ const buyReducer = handleActions(
       // step two: update entities
       let entities = state.getIn(['swaps', 'entities']);
       let entity = entities.get(uuid);
+      if (entity.get('status') === 'finished') {
+        // NOTE: stop update when a swap was finished
+        return state;
+      }
       if (!entity) {
         // set new
         entity = fromJS({
@@ -157,6 +161,11 @@ const buyReducer = handleActions(
         });
       } else {
         // update
+        // sentflags
+        const sentf = entity.get('sentflags');
+        if (sentflags && sentf.size < sentflags.length) {
+          entity = entity.set('sentflags', fromJS(sentflags));
+        }
         entity = entity.merge(
           fromJS({
             id: tradeid,
@@ -168,7 +177,6 @@ const buyReducer = handleActions(
             alice,
             bobamount: srcamount,
             aliceamount: destamount,
-            sentflags,
             status
           })
         );
@@ -208,8 +216,8 @@ const buyReducer = handleActions(
         let sentf = entity.get('sentflags');
         if (!sentf.includes(update)) {
           sentf = sentf.unshift(update);
+          entity = entity.set('sentflags', sentf);
         }
-        entity = entity.set('sentflags', sentf);
       }
 
       if (method === 'tradestatus') {
