@@ -8,7 +8,6 @@ import { withRouter } from 'react-router';
 import type { Location } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -104,47 +103,57 @@ type Props = {
 };
 
 type State = {
-  anchor: string
+  anchor: string,
+  fakeURL: string | null
 };
 
 class DICDrawer extends Component<Props, State> {
   static defaultProps = {};
 
   state = {
-    anchor: 'left'
+    anchor: 'left',
+    fakeURL: null
+  };
+
+  goto = router => {
+    this.setState(
+      {
+        fakeURL: router
+      },
+      () => {
+        const { history } = this.props;
+        setTimeout(() => {
+          history.push(router);
+        }, 0);
+      }
+    );
   };
 
   gotoHomePage = () => {
-    const { history } = this.props;
-    history.push(routes.WALLET);
+    this.goto(routes.WALLET);
   };
 
   gotoWalletPage = () => {
-    const { history } = this.props;
-    history.push(routes.WALLET);
+    this.goto(routes.WALLET);
   };
 
-  // gotoDashboardPage = () => {
-  //   const { history } = this.props;
-  //   history.push(routes.DASHBOARD);
-  // };
-
   gotoBuyPage = () => {
-    const { history } = this.props;
-    history.push(routes.BUY);
+    this.goto(routes.BUY);
   };
 
   gotoHelpPage = () => {
-    const { history } = this.props;
-    history.push(routes.HELP);
+    this.goto(routes.HELP);
   };
 
   render() {
     debug(`render`);
 
     const { classes, location, dispatchShowLogoutDialog } = this.props;
-    const { anchor } = this.state;
-    const { pathname = '/' } = location;
+    const { anchor, fakeURL } = this.state;
+    let { pathname = '/' } = location;
+    if (fakeURL) {
+      pathname = fakeURL;
+    }
 
     return (
       <Drawer
@@ -163,7 +172,6 @@ class DICDrawer extends Component<Props, State> {
             <HomeIcon />
           </IconButton> */}
         </div>
-        {/* <Divider /> */}
         <List>
           {/* <ListItem button selected onClick={this.gotoDashboardPage}>
             <ListItemIcon selected>
