@@ -205,6 +205,10 @@ const buyReducer = handleActions(
       // step one: find entity
       let entities = state.getIn(['swaps', 'entities']);
       let entity = entities.get(uuid);
+      if (entity.get('status') === 'finished') {
+        // NOTE: stop update when a swap was finished
+        return state;
+      }
 
       // step two: update expiration
       if (expiration) {

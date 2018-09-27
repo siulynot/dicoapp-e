@@ -78,7 +78,7 @@ describe('containers/BuyPage/reducers/loadBuyCoinError', () => {
 describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
   const { uuid } = WEBSOCKET_STATE_ZERO;
 
-  const store = initialState
+  let store = initialState
     .setIn(['swaps', 'loading'], true)
     .setIn(['swaps', 'list'], fromJS([uuid]))
     .setIn(
@@ -98,19 +98,16 @@ describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
       ['swaps', 'entities'],
       entities.set(uuid, entity)
     );
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_ONE.result)
-      )
-    ).toEqual(expectedResult);
-
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_TWO.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_ONE.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_TWO.result)
+    );
+    expect(store).toEqual(expectedResult);
 
     entities = store.getIn(['swaps', 'entities']);
     entity = entities.get(uuid);
@@ -124,18 +121,16 @@ describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
       ['swaps', 'entities'],
       entities.set(uuid, entity)
     );
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_THREE.result)
-      )
-    ).toEqual(expectedResult);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_THREE.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_THREE.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_THREE.result)
+    );
+    expect(store).toEqual(expectedResult);
 
     entities = store.getIn(['swaps', 'entities']);
     entity = entities.get(uuid);
@@ -149,43 +144,34 @@ describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
       ['swaps', 'entities'],
       entities.set(uuid, entity)
     );
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FOUR.result)
-      )
-    ).toEqual(expectedResult);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FOUR.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FOUR.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FOUR.result)
+    );
+    expect(store).toEqual(expectedResult);
 
     entities = store.getIn(['swaps', 'entities']);
     entity = entities.get(uuid);
-    entity = entity
-      .set(
-        'sentflags',
-        entity.get('sentflags').unshift(WEBSOCKET_STATE_FIVE.result.update)
-      )
-      .set('expiration', WEBSOCKET_STATE_FIVE.result.expiration);
+    entity = entity.set('expiration', WEBSOCKET_STATE_FIVE.result.expiration);
     expectedResult = store.setIn(
       ['swaps', 'entities'],
       entities.set(uuid, entity)
     );
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FIVE.result)
-      )
-    ).toEqual(expectedResult);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FIVE.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FIVE.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FIVE.result)
+    );
+    expect(store).toEqual(expectedResult);
 
     entities = store.getIn(['swaps', 'entities']);
     entity = entities.get(uuid);
@@ -199,18 +185,16 @@ describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
       ['swaps', 'entities'],
       entities.set(uuid, entity)
     );
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SIX.result)
-      )
-    ).toEqual(expectedResult);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SIX.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SIX.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SIX.result)
+    );
+    expect(store).toEqual(expectedResult);
 
     entities = store.getIn(['swaps', 'entities']);
     entity = entities.get(uuid);
@@ -221,18 +205,26 @@ describe('containers/BuyPage/reducers/loadRecentSwapsDataFromWebsocket', () => {
     expectedResult = store
       .setIn(['swaps', 'entities'], entities.set(uuid, entity))
       .setIn(['swaps', 'loading'], false);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SEVEN.result)
-      )
-    ).toEqual(expectedResult);
-    expect(
-      buyReducer(
-        store,
-        loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SEVEN.result)
-      )
-    ).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SEVEN.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SEVEN.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_SIX.result)
+    );
+    expect(store).toEqual(expectedResult);
+    store = buyReducer(
+      store,
+      loadRecentSwapsDataFromWebsocket(WEBSOCKET_STATE_FIVE.result)
+    );
+    expect(store).toEqual(expectedResult);
   });
 });
 
