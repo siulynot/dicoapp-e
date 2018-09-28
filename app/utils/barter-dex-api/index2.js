@@ -1,8 +1,9 @@
 // @flow
 // import getConfig from '../config';
 // import type { EndpointType, CancelRequest } from './schema';
-import swapstatus from './swapstatus';
 import httpprovider from './http-provider';
+// import login from './login';
+import swapstatus from './swapstatus';
 
 // const config = getConfig();
 
@@ -27,6 +28,7 @@ function BarterDexAPI(): Object {
       }
     },
     httpprovider(state),
+    // login(state),
     swapstatus(state)
   );
 }
