@@ -1,5 +1,6 @@
 // @flow
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
+import { CANCEL } from 'redux-saga';
 import getConfig from '../config';
 import type { StateType } from './schema';
 
@@ -20,18 +21,27 @@ export default function httpProvider(
   return {
     // eslint-disable-next-line flowtype/no-weak-types
     publicCall(params: Object) {
+      const source = CancelToken.source();
       const serverparams = {
         data: params,
         url,
-        method: 'post'
+        method: 'post',
+        cancelToken: source.token
       };
-      return axios(serverparams)
+
+      const request = axios(serverparams)
         .then(json)
         .catch(toError);
+      request[CANCEL] = () => source.cancel();
+      return request;
     },
     // eslint-disable-next-line flowtype/no-weak-types
     privateCall(params: Object) {
       const userpass = this.getUserpass();
+      const source = CancelToken.source();
+      if (!userpass) {
+        return Promise.reject(new Error('not found userpass'));
+      }
       const data = Object.assign(
         {
           userpass
@@ -41,11 +51,14 @@ export default function httpProvider(
       const serverparams = {
         data,
         url,
-        method: 'post'
+        method: 'post',
+        cancelToken: source.token
       };
-      return axios(serverparams)
+      const request = axios(serverparams)
         .then(json)
         .catch(toError);
+      request[CANCEL] = () => source.cancel();
+      return request;
     }
   };
 }

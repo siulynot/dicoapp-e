@@ -2,8 +2,9 @@
 // import getConfig from '../config';
 // import type { EndpointType, CancelRequest } from './schema';
 import httpprovider from './http-provider';
-import addServer from './add-server';
-import login from './login';
+import addServerFactory from './add-server';
+import listTransactionsFactory from './list-transactions';
+import loginFactory from './login';
 import swapstatus from './swapstatus';
 
 // const config = getConfig();
@@ -29,8 +30,9 @@ function BarterDexAPI(): Object {
       }
     },
     httpprovider(state),
-    addServer(state),
-    login(state),
+    addServerFactory(state),
+    listTransactionsFactory(state),
+    loginFactory(state),
     swapstatus(state)
   );
 }
