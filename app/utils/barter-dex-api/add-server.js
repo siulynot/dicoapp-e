@@ -6,7 +6,7 @@
 type AddServerType = {};
 
 // export default function addServer(state: StateType) {
-export default function addServer() {
+export default function addServerFactory() {
   return {
     addServer(params?: AddServerType) {
       const serverparams = Object.assign({}, params, {
