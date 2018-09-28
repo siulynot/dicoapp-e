@@ -53,9 +53,8 @@ export function* authorize(passphrase) {
 //   yield takeLatest(LOGIN, loginProcess);
 // }
 
-export function* loginFlow() {
+export function* loginFlow({ payload }) {
   debug(`login flow`);
-  const { payload } = yield take(LOGIN);
   const { passphrase } = payload;
   // A `LOGOUT` action may happen while the `authorize` effect is going on, which may
   // lead to a race condition. This is unlikely, but just in case, we call `race` which
@@ -72,5 +71,5 @@ export function* loginFlow() {
 }
 
 export default function* root() {
-  yield takeFirst(loginFlow);
+  yield takeFirst(LOGIN, loginFlow);
 }
