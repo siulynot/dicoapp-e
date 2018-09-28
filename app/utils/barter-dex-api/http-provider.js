@@ -3,6 +3,14 @@ import axios from 'axios';
 import getConfig from '../config';
 import type { StateType } from './schema';
 
+function toError(error) {
+  throw error;
+}
+
+function json(body) {
+  return body.data;
+}
+
 const config = getConfig();
 
 export default function httpProvider(
@@ -12,21 +20,32 @@ export default function httpProvider(
   return {
     // eslint-disable-next-line flowtype/no-weak-types
     publicCall(params: Object) {
-      const serverparams = Object.assign({}, params, {
+      const serverparams = {
+        data: params,
         url,
         method: 'post'
-      });
-      return axios(serverparams);
+      };
+      return axios(serverparams)
+        .then(json)
+        .catch(toError);
     },
     // eslint-disable-next-line flowtype/no-weak-types
     privateCall(params: Object) {
       const userpass = this.getUserpass();
-      const serverparams = Object.assign({}, params, {
+      const data = Object.assign(
+        {
+          userpass
+        },
+        params
+      );
+      const serverparams = {
+        data,
         url,
-        method: 'post',
-        userpass
-      });
-      return axios(serverparams);
+        method: 'post'
+      };
+      return axios(serverparams)
+        .then(json)
+        .catch(toError);
     }
   };
 }

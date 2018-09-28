@@ -10,7 +10,7 @@ type CancelRequest = {
 };
 
 type StateType = {
-  userpass: string
+  userpass: string | null
 };
 
 // eslint-disable-next-line import/prefer-default-export

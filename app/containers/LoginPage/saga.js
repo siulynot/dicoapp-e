@@ -3,7 +3,8 @@
 import { all, fork, take, race, call, put } from 'redux-saga/effects';
 import { LOGIN, LOGOUT } from '../App/constants';
 import { loginSuccess, loginError } from '../App/actions';
-import api from '../../utils/barter-dex-api';
+// import api from '../../utils/barter-dex-api';
+import api from '../../utils/barter-dex-api/index2';
 import getConfig from '../../utils/config';
 
 const debug = require('debug')('dicoapp:containers:LoginPage:saga');
@@ -13,11 +14,12 @@ const config = getConfig();
 export function* authorize(passphrase) {
   try {
     debug(`authorize is running`);
-    const data = yield api.login(passphrase);
-    const servers = config.get('marketmaker.electrums').map(e => {
-      e.userpass = data.userpass;
-      return e;
-    });
+    const data = yield call([api, 'login'], passphrase);
+    const servers = config.get('marketmaker.electrums');
+    // .map(e => {
+    //   e.userpass = data.userpass;
+    //   return e;
+    // });
 
     const requests = [];
     for (let i = 0; i < servers.length; i += 1) {
