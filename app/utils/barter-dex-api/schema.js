@@ -9,5 +9,9 @@ type CancelRequest = {
   uuid: string
 };
 
+type StateType = {
+  userpass: string
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export type { EndpointType, CancelRequest };
+export type { EndpointType, CancelRequest, StateType };
