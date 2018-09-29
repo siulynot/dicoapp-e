@@ -1,42 +1,63 @@
-// import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { all, put, select, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  select,
+  takeLatest,
+  cancelled
+} from 'redux-saga/effects';
+import { CANCEL } from 'redux-saga';
 import { LOAD_TRANSACTIONS } from './constants';
 import { makeSelectCurrentUser } from '../App/selectors';
 // import api from '../../utils/barter-dex-api';
 import api from '../../utils/barter-dex-api/index2';
 import {
-  // loadTransactionsSuccess,
+  loadTransactionSuccess,
+  loadTransactionsSuccess,
   loadTransactionsError
 } from './actions';
 
 const debug = require('debug')('dicoapp:containers:WalletPage:saga');
 
-// export function* loadCoinTransactionsProcess(data, coin) {
-//   try {
-//     debug(`loadCoinTransactionsProcess running${coin}`);
-//     const params = {
-//       coin,
-//       address
-//     };
-//     let data = yield call([api, 'listTransactions'], params);
+export function* loadCoinTransactionsProcess(coin, address) {
+  let request = null;
+  try {
+    debug(`load coin transaction process running ${coin}`);
 
-//     // sort
-//     data = data.sort((a, b) => b.height - a.height);
+    request = api.listTransactions({
+      coin,
+      address
+    });
 
-//     // only take 10 records
-//     data = data.slice(0, 10);
+    let data = yield request;
 
-//     // add coin symbol
-//     data = data.map(e => {
-//       e.coin = coin;
-//       return e;
-//     });
-//     return data;
-//   } catch (err) {
-//     debug(`loadCoinTransactionsProcess fail ${coin}: ${err.message}`);
-//     return [];
-//   }
-// }
+    // sort
+    data = data.sort((a, b) => b.height - a.height);
+
+    // only take 10 records
+    data = data.slice(0, 10);
+
+    // add coin symbol
+    data = data.map(e => {
+      e.coin = coin;
+      return e;
+    });
+
+    console.log('load coin transaction process', data);
+
+    return yield put(loadTransactionSuccess(data));
+  } catch (err) {
+    debug(`load coin transaction process fail ${coin}: ${err.message}`);
+    return [];
+  } finally {
+    if (yield cancelled()) {
+      debug(`load coin transaction process cancelled ${coin}`);
+      if (request && request[CANCEL]) {
+        request[CANCEL]();
+      }
+    }
+  }
+}
 
 export function* loadTransactionsProcess() {
   try {
@@ -53,19 +74,13 @@ export function* loadTransactionsProcess() {
       const e = coins.get(i);
       const coin = e.get('coin');
       const address = e.get('smartaddress');
-      requests.push(
-        api.listTransactions({
-          coin,
-          address
-        })
-      );
+      requests.push(call(loadCoinTransactionsProcess, coin, address));
     }
     // https://github.com/chainmakers/dicoapp/blob/glxt/.desktop/modules/marketmaker/index.js#L1144
-    let data = yield all(requests);
+    const data = yield all(requests);
     console.log(data, 'data');
-    data = data.reduce((a, b) => a.concat(b), []);
-
-    // return yield put(loadTransactionsSuccess(data));
+    // data = data.reduce((a, b) => a.concat(b), []);
+    return yield put(loadTransactionsSuccess());
   } catch (err) {
     return yield put(loadTransactionsError(err.message));
   }

@@ -11,3 +11,9 @@ Object {
   "type": "dicoapp/WalletPage/LOAD_TRANSACTIONS",
 }
 `;
+
+exports[`containers/WalletPage/actions/loadTransactionsSuccess should loadTransactionsSuccess should create loadTransactionsSuccess action 1`] = `
+Object {
+  "type": "dicoapp/WalletPage/LOAD_TRANSACTIONS_SUCCESS",
+}
+`;

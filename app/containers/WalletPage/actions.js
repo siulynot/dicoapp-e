@@ -14,16 +14,13 @@ export function loadTransactions() {
   };
 }
 
-export function loadTransactionsSuccess(transactions) {
+export function loadTransactionsSuccess() {
   return {
-    type: LOAD_TRANSACTIONS_SUCCESS,
-    payload: {
-      transactions
-    }
+    type: LOAD_TRANSACTIONS_SUCCESS
   };
 }
 
-export function loadTransactionSuccess(transaction: TransactionPayload) {
+export function loadTransactionSuccess(transaction: Array<TransactionPayload>) {
   return {
     type: LOAD_TRANSACTION_SUCCESS,
     payload: {
