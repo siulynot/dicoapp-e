@@ -1,5 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
+import { shell } from 'electron';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -104,6 +105,12 @@ class Transactions extends PureComponent<Props> {
     dispatchLoadTransactions();
   };
 
+  onClickTranstactions = (evt: SyntheticInputEvent<>) => {
+    evt.preventDefault();
+    // https://github.com/electron/electron/blob/master/docs/api/shell.md#shellopenexternalurl
+    shell.openExternal(evt.target.href);
+  };
+
   renderRecord = (v, k) => {
     const { entities } = this.props;
     const t = entities.get(v);
@@ -119,8 +126,9 @@ class Transactions extends PureComponent<Props> {
             <a
               style={{ color: '#000' }}
               href={`${explorer[t.get('coin')]}/${t.get('tx_hash')}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              // target="_blank"
+              // rel="noopener noreferrer"
+              onClick={this.onClickTranstactions}
             >
               {t.get('tx_hash')}
             </a>
@@ -134,7 +142,6 @@ class Transactions extends PureComponent<Props> {
   render() {
     debug(`render`);
 
-    // const { loading, classes, transactions, error } = this.props;
     const { loading, classes, list, error } = this.props;
 
     return (

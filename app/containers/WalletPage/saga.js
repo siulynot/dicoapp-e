@@ -1,12 +1,6 @@
-import {
-  all,
-  call,
-  put,
-  select,
-  takeLatest,
-  cancelled
-} from 'redux-saga/effects';
+import { all, call, put, select, cancelled } from 'redux-saga/effects';
 import { CANCEL } from 'redux-saga';
+import takeFirst from '../../utils/sagas/take-first';
 import { LOAD_TRANSACTIONS } from './constants';
 import { makeSelectCurrentUser } from '../App/selectors';
 // import api from '../../utils/barter-dex-api';
@@ -43,8 +37,6 @@ export function* loadCoinTransactionsProcess(coin, address) {
       return e;
     });
 
-    console.log('load coin transaction process', data);
-
     return yield put(loadTransactionSuccess(data));
   } catch (err) {
     debug(`load coin transaction process fail ${coin}: ${err.message}`);
@@ -77,9 +69,7 @@ export function* loadTransactionsProcess() {
       requests.push(call(loadCoinTransactionsProcess, coin, address));
     }
     // https://github.com/chainmakers/dicoapp/blob/glxt/.desktop/modules/marketmaker/index.js#L1144
-    const data = yield all(requests);
-    console.log(data, 'data');
-    // data = data.reduce((a, b) => a.concat(b), []);
+    yield all(requests);
     return yield put(loadTransactionsSuccess());
   } catch (err) {
     return yield put(loadTransactionsError(err.message));
@@ -90,5 +80,5 @@ export function* loadTransactionsProcess() {
  * Root saga manages watcher lifecycle
  */
 export default function* walletData() {
-  yield takeLatest(LOAD_TRANSACTIONS, loadTransactionsProcess);
+  yield takeFirst(LOAD_TRANSACTIONS, loadTransactionsProcess);
 }
