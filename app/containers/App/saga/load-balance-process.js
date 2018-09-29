@@ -21,8 +21,8 @@ export function* loadCoinBalanceProcess(coin, address) {
       coin,
       address
     };
-    request = api.getBalance(params);
-    const data = yield call([api, 'getBalance'], params);
+    request = api.balance(params);
+    const data = yield request;
     data.address = address;
     // const utxo = yield call([api, 'listUnspent'], params);
     yield put(
