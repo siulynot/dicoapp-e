@@ -8,7 +8,10 @@ import getendpointFactory from './get-endpoint';
 import listTransactionsFactory from './list-transactions';
 import orderbookFactory from './orderbook';
 import loginFactory from './login';
-import swapstatus from './swapstatus';
+import recentswapsFactory from './recentswaps';
+import sendRawTransactionFactory from './send-raw-transaction';
+import swapstatusFactory from './swapstatus';
+import withdrawFactory from './withdraw';
 
 // const config = getConfig();
 
@@ -39,7 +42,10 @@ function BarterDexAPI(): Object {
     listTransactionsFactory(state),
     orderbookFactory(state),
     loginFactory(state),
-    swapstatus(state)
+    recentswapsFactory(state),
+    sendRawTransactionFactory(state),
+    swapstatusFactory(state),
+    withdrawFactory(state)
   );
 }
 

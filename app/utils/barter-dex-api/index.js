@@ -74,52 +74,12 @@ class BarterDexAPI {
     return this.create(endpointParams);
   }
 
-  // eslint-disable-next-line flowtype/no-weak-types
-  withdraw(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'withdraw'
-    });
-    return this.create(serverparams);
-  }
-
-  // eslint-disable-next-line flowtype/no-weak-types
-  sendRawTransaction(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'sendrawtransaction'
-    });
-    return this.create(serverparams, {
-      toJSON: false
-    });
-  }
-
   // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#listunspent
   // eslint-disable-next-line flowtype/no-weak-types
   listUnspent(params: Object) {
     // FIXME: verify params
     const serverparams = Object.assign({}, params, {
       method: 'listunspent'
-    });
-    return this.create(serverparams);
-  }
-
-  // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#recentswaps
-  // eslint-disable-next-line flowtype/no-weak-types
-  recentswaps(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'recentswaps'
-    });
-    return this.create(serverparams);
-  }
-
-  // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#swapstatus-requestid-quoteid-pending-0
-  // eslint-disable-next-line flowtype/no-weak-types
-  swapstatus(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'swapstatus'
     });
     return this.create(serverparams);
   }

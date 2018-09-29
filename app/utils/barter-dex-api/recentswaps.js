@@ -7,8 +7,8 @@ type RecentswapsType = {
   limit?: number
 };
 
-// export default function recentswaps(state: StateType) {
-export default function recentswaps() {
+// export default function recentswapsFactory(state: StateType) {
+export default function recentswapsFactory() {
   return {
     recentswaps(params?: RecentswapsType) {
       const serverparams = Object.assign({}, params, {

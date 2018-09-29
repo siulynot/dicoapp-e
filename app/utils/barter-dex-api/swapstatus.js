@@ -8,8 +8,8 @@ type SwapstatusType = {
   quoteid: number
 };
 
-// export default function swapstatus(state: StateType) {
-export default function swapstatus() {
+// export default function swapstatusFactory(state: StateType) {
+export default function swapstatusFactory() {
   return {
     swapstatus(params: SwapstatusType) {
       const serverparams = Object.assign({}, params, {
