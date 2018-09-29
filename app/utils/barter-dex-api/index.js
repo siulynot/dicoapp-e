@@ -1,7 +1,7 @@
 // @flow
 import FetchService from '../fetch-service';
 import getConfig from '../config';
-import type { EndpointType, CancelRequest } from './schema';
+import type { CancelRequest } from './schema';
 
 const config = getConfig();
 
@@ -63,12 +63,6 @@ class BarterDexAPI {
   /**
    * Status/Info
    */
-  getEndpoint(params: EndpointType) {
-    const endpointParams = Object.assign({}, params, {
-      method: 'getendpoint'
-    });
-    return this.create(endpointParams);
-  }
 
   /**
    * BarterDEX Operation

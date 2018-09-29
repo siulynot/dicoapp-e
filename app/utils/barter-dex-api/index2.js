@@ -4,6 +4,7 @@
 import httpprovider from './http-provider';
 import addServerFactory from './add-server';
 import balanceFactory from './balance';
+import getendpointFactory from './get-endpoint';
 import listTransactionsFactory from './list-transactions';
 import orderbookFactory from './orderbook';
 import loginFactory from './login';
@@ -34,6 +35,7 @@ function BarterDexAPI(): Object {
     httpprovider(state),
     addServerFactory(state),
     balanceFactory(state),
+    getendpointFactory(state),
     listTransactionsFactory(state),
     orderbookFactory(state),
     loginFactory(state),
