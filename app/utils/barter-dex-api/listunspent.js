@@ -7,7 +7,7 @@
 type ListUnspentType = {
   coin: string,
   // eslint-disable-next-line flowtype/no-weak-types
-  outputs: Object
+  address: string
 };
 
 // export default function listunspentFactory(state: StateType) {

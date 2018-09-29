@@ -18,7 +18,7 @@ const headers = {
   Accept: 'application/json'
 };
 
-const TIMEOUT = 30000;
+const TIMEOUT = 300000; // 5 min
 
 export default function httpProvider(
   state: StateType,

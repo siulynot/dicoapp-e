@@ -6,12 +6,12 @@ describe('utils/barter-dex-api/listunspent', () => {
       userpass: null
     };
     const coin = 'BEER';
-    const outputs = [{ RL1XYoxbKaETGSqiS4po3pk1ZjRYqHBqvc: 1 }];
+    const address = 'address';
     const fakeHttpProvider = {
       privateCall(params) {
         expect(params).toEqual({
           coin,
-          outputs,
+          address,
           method: 'listunspent'
         });
       }
@@ -19,7 +19,7 @@ describe('utils/barter-dex-api/listunspent', () => {
     const api = Object.assign({}, fakeHttpProvider, listunspentFactory(state));
     api.listunspent({
       coin,
-      outputs
+      address
     });
   });
 });

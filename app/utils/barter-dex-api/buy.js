@@ -7,8 +7,8 @@
 type BuyType = {
   base: string,
   rel: string,
-  relvolume: number,
-  price: number
+  relvolume: string,
+  price: string
 };
 
 // export default function buyFactory(state: StateType) {
