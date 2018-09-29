@@ -80,53 +80,6 @@ class BarterDexAPI {
     return this.create(endpointParams);
   }
 
-  login(passphrase: string) {
-    const { paths } = this.config;
-    const setparams = {
-      userpass:
-        '1d8b27b21efabcd96571cd56f91a40fb9aa4cc623d273c63bf9223dc6f8cd81f',
-      userhome: paths.homeDir,
-      method: 'passphrase',
-      passphrase,
-      gui: 'dICOapp-cm'
-      // 'netid':
-      // 'seednode':
-    };
-    return this.create(setparams);
-  }
-
-  /**
-   *
-   */
-  // eslint-disable-next-line flowtype/no-weak-types
-  getBalance(params: Object) {
-    // FIXME: verify params
-    const balanceparams = Object.assign({}, params, {
-      method: 'balance'
-    });
-    return this.create(balanceparams);
-  }
-
-  // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html#electrum
-  // eslint-disable-next-line flowtype/no-weak-types
-  addServer(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'electrum'
-    });
-    return this.create(serverparams);
-  }
-
-  // eslint-disable-next-line flowtype/no-weak-types
-  listTransactions(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'listtransactions',
-      count: 10
-    });
-    return this.create(serverparams);
-  }
-
   // eslint-disable-next-line flowtype/no-weak-types
   withdraw(params: Object) {
     // FIXME: verify params
@@ -145,16 +98,6 @@ class BarterDexAPI {
     return this.create(serverparams, {
       toJSON: false
     });
-  }
-
-  // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html#orderbook
-  // eslint-disable-next-line flowtype/no-weak-types
-  orderbook(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'orderbook'
-    });
-    return this.create(serverparams);
   }
 
   // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#listunspent
