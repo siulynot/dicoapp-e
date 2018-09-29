@@ -74,16 +74,6 @@ class BarterDexAPI {
     return this.create(endpointParams);
   }
 
-  // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#listunspent
-  // eslint-disable-next-line flowtype/no-weak-types
-  listUnspent(params: Object) {
-    // FIXME: verify params
-    const serverparams = Object.assign({}, params, {
-      method: 'listunspent'
-    });
-    return this.create(serverparams);
-  }
-
   // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#pendingswaps
   // eslint-disable-next-line flowtype/no-weak-types
   pendingswaps(params: Object) {

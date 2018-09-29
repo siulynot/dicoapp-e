@@ -14,6 +14,12 @@ function json(body) {
 
 const config = getConfig();
 
+const headers = {
+  Accept: 'application/json'
+};
+
+const TIMEOUT = 30000;
+
 export default function httpProvider(
   state: StateType,
   url: string = config.get('barterdex')
@@ -23,6 +29,8 @@ export default function httpProvider(
     publicCall(params: Object) {
       const source = CancelToken.source();
       const serverparams = {
+        timeout: TIMEOUT,
+        headers,
         data: params,
         url,
         method: 'post',
@@ -49,6 +57,8 @@ export default function httpProvider(
         params
       );
       const serverparams = {
+        timeout: TIMEOUT,
+        headers,
         data,
         url,
         method: 'post',
