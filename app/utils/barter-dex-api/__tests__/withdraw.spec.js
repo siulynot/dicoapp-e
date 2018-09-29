@@ -5,8 +5,8 @@ describe('utils/barter-dex-api/withdraw', () => {
     const state = {
       userpass: null
     };
-    const coin = 'coin';
-    const outputs = [{ KMD: 1 }];
+    const coin = 'BEER';
+    const outputs = [{ RL1XYoxbKaETGSqiS4po3pk1ZjRYqHBqvc: 1 }];
     const fakeHttpProvider = {
       privateCall(params) {
         expect(params).toEqual({

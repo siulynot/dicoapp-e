@@ -41,7 +41,7 @@ export default function* loadWithdrawProcess({ payload }) {
       coin,
       signedtx: hex
     };
-    const resultSendrawtx = yield api.sendRawTransaction(sendrawtx);
+    const resultSendrawtx = yield api.sendrawtransaction(sendrawtx);
     debug(`resultSendrawtx = ${resultSendrawtx}`);
 
     // eslint-disable-next-line no-param-reassign
