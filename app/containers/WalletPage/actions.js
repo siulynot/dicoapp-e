@@ -2,9 +2,11 @@
 
 import {
   LOAD_TRANSACTIONS,
+  LOAD_TRANSACTION_SUCCESS,
   LOAD_TRANSACTIONS_SUCCESS,
   LOAD_TRANSACTIONS_ERROR
 } from './constants';
+import type { TransactionPayload } from './schema';
 
 export function loadTransactions() {
   return {
@@ -17,6 +19,15 @@ export function loadTransactionsSuccess(transactions) {
     type: LOAD_TRANSACTIONS_SUCCESS,
     payload: {
       transactions
+    }
+  };
+}
+
+export function loadTransactionSuccess(transaction: TransactionPayload) {
+  return {
+    type: LOAD_TRANSACTION_SUCCESS,
+    payload: {
+      transaction
     }
   };
 }

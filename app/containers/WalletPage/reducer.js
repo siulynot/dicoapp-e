@@ -15,7 +15,8 @@ const initialState = fromJS({
   transactions: {
     loading: false,
     error: false,
-    list: []
+    list: [],
+    entities: {}
   }
 });
 
