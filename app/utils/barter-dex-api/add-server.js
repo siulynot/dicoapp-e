@@ -8,7 +8,7 @@ type AddServerType = {};
 // export default function addServer(state: StateType) {
 export default function addServerFactory() {
   return {
-    addServer(params?: AddServerType) {
+    addServer(params: AddServerType) {
       const serverparams = Object.assign({}, params, {
         method: 'electrum'
       });

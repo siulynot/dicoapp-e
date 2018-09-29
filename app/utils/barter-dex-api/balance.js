@@ -1,19 +1,18 @@
 // @flow
 
-// https://docs.komodoplatform.com/barterDEX/barterDEX-API.html#orderbook
 // import type { StateType } from './schema';
 
-type OrderbookType = {
-  base: string,
-  rel: string
+type BalanceType = {
+  coin: string,
+  address: string
 };
 
 // export default function orderbookFactory(state: StateType) {
-export default function orderbookFactory() {
+export default function balanceFactory() {
   return {
-    orderbook(params: OrderbookType) {
+    balance(params: BalanceType) {
       const serverparams = Object.assign({}, params, {
-        method: 'orderbook'
+        method: 'balance'
       });
       return this.privateCall(serverparams);
     }

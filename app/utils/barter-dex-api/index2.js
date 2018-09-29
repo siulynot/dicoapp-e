@@ -3,6 +3,7 @@
 // import type { EndpointType, CancelRequest } from './schema';
 import httpprovider from './http-provider';
 import addServerFactory from './add-server';
+import balanceFactory from './balance';
 import listTransactionsFactory from './list-transactions';
 import orderbookFactory from './orderbook';
 import loginFactory from './login';
@@ -32,6 +33,7 @@ function BarterDexAPI(): Object {
     },
     httpprovider(state),
     addServerFactory(state),
+    balanceFactory(state),
     listTransactionsFactory(state),
     orderbookFactory(state),
     loginFactory(state),

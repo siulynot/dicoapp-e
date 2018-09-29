@@ -1,6 +1,7 @@
 // https://github.com/react-boilerplate/react-boilerplate/issues/1277#issuecomment-263267639
-import { put, select, call, all } from 'redux-saga/effects';
-import api from '../../../utils/barter-dex-api';
+import { put, select, call, all, cancelled } from 'redux-saga/effects';
+import { CANCEL } from 'redux-saga';
+import api from '../../../utils/barter-dex-api/index2';
 import { makeSelectCurrentUser } from '../selectors';
 import {
   loadBalanceSuccess,
@@ -12,14 +13,15 @@ const debug = require('debug')(
   'dicoapp:containers:App:saga:load-balance-process'
 );
 
-export function* loadCoinBalanceProcess(coin, address, userpass) {
+export function* loadCoinBalanceProcess(coin, address) {
+  let request = null;
   try {
     debug(`load coin balance process running ${coin}`);
     const params = {
-      userpass,
       coin,
       address
     };
+    request = api.getBalance(params);
     const data = yield call([api, 'getBalance'], params);
     data.address = address;
     // const utxo = yield call([api, 'listUnspent'], params);
@@ -42,6 +44,13 @@ export function* loadCoinBalanceProcess(coin, address, userpass) {
   } catch (err) {
     debug(`load coin balance process fail ${coin}: ${err.message}`);
     return false;
+  } finally {
+    if (yield cancelled()) {
+      debug(`load coin balance process cancelled ${coin}`);
+      if (request && request[CANCEL]) {
+        request[CANCEL]();
+      }
+    }
   }
 }
 
@@ -52,14 +61,13 @@ export default function* loadBalanceProcess() {
     if (!user) {
       throw new Error('not found user');
     }
-    const userpass = user.get('userpass');
     const coins = user.get('coins');
     const requests = [];
     for (let i = 0; i < coins.size; i += 1) {
       const e = coins.get(i);
       const coin = e.get('coin');
       const address = e.get('smartaddress');
-      requests.push(call(loadCoinBalanceProcess, coin, address, userpass));
+      requests.push(call(loadCoinBalanceProcess, coin, address));
     }
     yield all(requests);
     return yield put(loadBalanceSuccess());
