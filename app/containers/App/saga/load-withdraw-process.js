@@ -1,7 +1,6 @@
 // https://github.com/react-boilerplate/react-boilerplate/issues/1277#issuecomment-263267639
-import { put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import api from '../../../utils/barter-dex-api/index2';
-import { makeSelectCurrentUser } from '../selectors';
 import { loadWithdrawSuccess, loadWithdrawError } from '../actions';
 
 const debug = require('debug')(
@@ -12,13 +11,6 @@ const numcoin = 100000000;
 
 export default function* loadWithdrawProcess({ payload }) {
   try {
-    // load user data
-    const user = yield select(makeSelectCurrentUser());
-    if (!user) {
-      throw new Error('not found user');
-    }
-    const userpass = user.get('userpass');
-
     const { amount, address, coin } = payload;
 
     let outputs = `[{${address}: ${Number(amount)}}]`;
@@ -27,7 +19,6 @@ export default function* loadWithdrawProcess({ payload }) {
     outputs = JSON.stringify(eval(`(${outputs})`));
 
     const sendparams = {
-      userpass,
       coin,
       outputs: JSON.parse(outputs)
     };
@@ -37,7 +28,6 @@ export default function* loadWithdrawProcess({ payload }) {
     const { hex, txfee } = resultWithdraw;
 
     const sendrawtx = {
-      userpass,
       coin,
       signedtx: hex
     };
