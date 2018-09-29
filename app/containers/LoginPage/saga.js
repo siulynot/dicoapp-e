@@ -3,7 +3,6 @@ import { all, take, race, call, put } from 'redux-saga/effects';
 import takeFirst from '../../utils/sagas/take-first';
 import { LOGIN, LOGOUT } from '../App/constants';
 import { loginSuccess, loginError } from '../App/actions';
-// import api from '../../utils/barter-dex-api';
 import api from '../../utils/barter-dex-api/index2';
 import getConfig from '../../utils/config';
 
