@@ -3,7 +3,7 @@ import { all, take, race, call, put } from 'redux-saga/effects';
 import takeFirst from '../../utils/sagas/take-first';
 import { LOGIN, LOGOUT } from '../App/constants';
 import { loginSuccess, loginError } from '../App/actions';
-import api from '../../utils/barter-dex-api/index2';
+import api from '../../utils/barter-dex-api/index';
 import getConfig from '../../utils/config';
 
 const debug = require('debug')('dicoapp:containers:LoginPage:saga');

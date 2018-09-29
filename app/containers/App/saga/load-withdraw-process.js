@@ -1,6 +1,6 @@
 // https://github.com/react-boilerplate/react-boilerplate/issues/1277#issuecomment-263267639
 import { put } from 'redux-saga/effects';
-import api from '../../../utils/barter-dex-api/index2';
+import api from '../../../utils/barter-dex-api/index';
 import { loadWithdrawSuccess, loadWithdrawError } from '../actions';
 
 const debug = require('debug')(

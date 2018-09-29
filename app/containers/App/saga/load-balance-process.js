@@ -1,7 +1,7 @@
 // https://github.com/react-boilerplate/react-boilerplate/issues/1277#issuecomment-263267639
 import { put, select, call, all, cancelled } from 'redux-saga/effects';
 import { CANCEL } from 'redux-saga';
-import api from '../../../utils/barter-dex-api/index2';
+import api from '../../../utils/barter-dex-api/index';
 import { makeSelectCurrentUser } from '../selectors';
 import {
   loadBalanceSuccess,

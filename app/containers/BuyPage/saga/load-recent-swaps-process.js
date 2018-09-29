@@ -1,5 +1,5 @@
 import { put, all, call, cancelled, select } from 'redux-saga/effects';
-import api from '../../../utils/barter-dex-api/index2';
+import api from '../../../utils/barter-dex-api/index';
 // import { loadSwapSuccess } from '../../App/actions';
 import { loadRecentSwapsCoin, loadRecentSwapsError } from '../actions';
 import { makeSelectSwapsEntities } from '../selectors';

@@ -1,4 +1,4 @@
-import BarterDexAPI from '../index2';
+import BarterDexAPI from '../index';
 
 describe('utils/barter-dex-api/index', () => {
   it('should create the BarterDexAPI correctly', () => {

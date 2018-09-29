@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from '../../utils/inject-reducer';
-import barterDexApi from '../../utils/barter-dex-api/index2';
+import barterDexApi from '../../utils/barter-dex-api/index';
 import barterDexSocket from '../../utils/barter-dex-socket';
 import reducer from './reducer';
 import { APP_STATE_NAME } from './constants';

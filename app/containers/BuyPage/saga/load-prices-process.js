@@ -1,7 +1,7 @@
 import { call, put, select, all, cancelled } from 'redux-saga/effects';
 import { CANCEL } from 'redux-saga';
 import getConfig from '../../../utils/config';
-import api from '../../../utils/barter-dex-api/index2';
+import api from '../../../utils/barter-dex-api/index';
 import { loadBestPrice, loadPricesSuccess, loadPricesError } from '../actions';
 import { makeSelectBalanceList } from '../selectors';
 
