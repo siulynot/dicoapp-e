@@ -1,0 +1,6 @@
+{
+  "dicoapp.containers.LoginPage.title": "Mua",
+  "dicoapp.containers.LoginPage.currency": "Tiền tệ",
+  "dicoapp.containers.LoginPage.payment": "Phương thức thanh toán",
+  "dicoapp.containers.LoginPage.amount": "Số lượng"
+}

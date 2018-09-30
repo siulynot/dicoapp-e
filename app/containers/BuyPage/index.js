@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import type { Dispatch } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import type { List, Map } from 'immutable';
 import { withStyles } from '@material-ui/core/styles';
@@ -136,18 +137,10 @@ class BuyPage extends Component<Props, State> {
 
     return (
       <React.Fragment>
-        <MDCAppBar title="Buy" />
-        {/* <AppBar position="fixed" color="default" className={classes.cardContent__appBar}>
-          <Toolbar>
-            <IconButton className={classes.cardContent__appBarBtn} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit">
-              Buy
-            </Typography>
-          </Toolbar>
-          <Divider />
-        </AppBar> */}
+        <MDCAppBar
+          title={<FormattedMessage id="dicoapp.containers.LoginPage.title" />}
+        />
+
         <Grid container spacing={0} className={classes.container}>
           <Grid item xs={12} className={classes.containerSection}>
             {/* <Card> */}
@@ -158,7 +151,7 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                Currency
+                <FormattedMessage id="dicoapp.containers.LoginPage.currency" />
               </Typography>
               {/* <Divider className={classes.hr} /> */}
 
@@ -173,7 +166,7 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                Payment Method
+                <FormattedMessage id="dicoapp.containers.LoginPage.payment" />
               </Typography>
               <IconButton
                 aria-label="Reload prices"
@@ -198,7 +191,7 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                Amount
+                <FormattedMessage id="dicoapp.containers.LoginPage.amount" />
               </Typography>
               {/* <Divider className={classes.hr} /> */}
               <AmountSection paymentCoin={paymentCoin} />

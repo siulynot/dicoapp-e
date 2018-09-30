@@ -1,0 +1,6 @@
+{
+  "dicoapp.containers.LoginPage.title": "Buy",
+  "dicoapp.containers.LoginPage.currency": "Currency",
+  "dicoapp.containers.LoginPage.payment": "Payment Method",
+  "dicoapp.containers.LoginPage.amount": "Amount"
+}
