@@ -2,5 +2,8 @@
   "dicoapp.containers.LoginPage.title": "Mua",
   "dicoapp.containers.LoginPage.currency": "Tiền tệ",
   "dicoapp.containers.LoginPage.payment": "Phương thức thanh toán",
-  "dicoapp.containers.LoginPage.amount": "Số lượng"
+  "dicoapp.containers.LoginPage.amount": "Số lượng",
+  "dicoapp.containers.Drawer.wallet": "Ví",
+  "dicoapp.containers.Drawer.buy": "Mua",
+  "dicoapp.containers.Drawer.help": "Giúp đỡ"
 }
