@@ -23,7 +23,10 @@ import { WEBSOCKET_DAEMON } from '../../utils/constants';
 import MDCAppBar from '../../components/AppBar';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { NavigationLayout } from '../Layout';
-import { makeSelectBalanceEntities } from '../App/selectors';
+import {
+  makeSelectBalanceEntities,
+  makeSelectBalanceLoading
+} from '../App/selectors';
 import { loadBalance } from '../App/actions';
 import AmountSection from './components/AmountSection';
 import CurrencySection from './components/CurrencySection';
@@ -76,6 +79,7 @@ const styles = () => ({
 
 type Props = {
   loading: boolean,
+  balanceLoading: boolean,
   // eslint-disable-next-line flowtype/no-weak-types
   classes: Object,
   // eslint-disable-next-line flowtype/no-weak-types
@@ -128,6 +132,7 @@ class BuyPage extends Component<Props, State> {
     const {
       classes,
       loading,
+      balanceLoading,
       list,
       entities,
       balance,
@@ -191,6 +196,7 @@ class BuyPage extends Component<Props, State> {
                 entities={entities}
                 balance={balance}
                 dispatchLoadPrice={dispatchLoadPrice}
+                loading={balanceLoading}
               />
             </CardContent>
             <CardContent className={classes.cardContent}>
@@ -228,7 +234,8 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectPricesLoading(),
   entities: makeSelectPricesEntities(),
   balance: makeSelectBalanceEntities(),
-  list: makeSelectBalanceList()
+  list: makeSelectBalanceList(),
+  balanceLoading: makeSelectBalanceLoading()
 });
 
 const withConnect = connect(
