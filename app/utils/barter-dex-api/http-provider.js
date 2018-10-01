@@ -69,6 +69,23 @@ export default function httpProvider(
         .catch(toError);
       request[CANCEL] = () => source.cancel();
       return request;
+    },
+    // eslint-disable-next-line flowtype/no-weak-types
+    get(params: Object) {
+      const source = CancelToken.source();
+      const serverparams = {
+        timeout: TIMEOUT,
+        headers,
+        params,
+        url,
+        method: 'get',
+        cancelToken: source.token
+      };
+      const request = axios(serverparams)
+        .then(json)
+        .catch(toError);
+      request[CANCEL] = () => source.cancel();
+      return request;
     }
   };
 }

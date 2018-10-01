@@ -6,11 +6,13 @@ describe('utils/barter-dex-api/index', () => {
     expect(typeof BarterDexAPI.balance).toEqual('function');
     expect(typeof BarterDexAPI.buy).toEqual('function');
     expect(typeof BarterDexAPI.getendpoint).toEqual('function');
+    expect(typeof BarterDexAPI.isready).toEqual('function');
     expect(typeof BarterDexAPI.listTransactions).toEqual('function');
     expect(typeof BarterDexAPI.orderbook).toEqual('function');
     expect(typeof BarterDexAPI.login).toEqual('function');
     expect(typeof BarterDexAPI.publicCall).toEqual('function');
     expect(typeof BarterDexAPI.privateCall).toEqual('function');
+    expect(typeof BarterDexAPI.get).toEqual('function');
     expect(typeof BarterDexAPI.swapstatus).toEqual('function');
     expect(typeof BarterDexAPI.setUserpass).toEqual('function');
     expect(typeof BarterDexAPI.getUserpass).toEqual('function');
