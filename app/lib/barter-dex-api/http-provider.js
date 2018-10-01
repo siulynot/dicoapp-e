@@ -1,7 +1,7 @@
 // @flow
 import axios, { CancelToken } from 'axios';
 import { CANCEL } from 'redux-saga';
-import getConfig from '../config';
+import config from '../config';
 import type { StateType } from './schema';
 
 function toError(error) {
@@ -11,8 +11,6 @@ function toError(error) {
 function json(body) {
   return body.data;
 }
-
-const config = getConfig();
 
 const headers = {
   Accept: 'application/json'

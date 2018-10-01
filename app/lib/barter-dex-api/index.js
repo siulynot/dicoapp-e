@@ -1,5 +1,4 @@
 // @flow
-// import getConfig from '../config';
 // import type { EndpointType, CancelRequest } from './schema';
 import httpprovider from './http-provider';
 import addServerFactory from './add-server';
@@ -15,8 +14,6 @@ import recentswapsFactory from './recentswaps';
 import sendRawTransactionFactory from './send-raw-transaction';
 import swapstatusFactory from './swapstatus';
 import withdrawFactory from './withdraw';
-
-// const config = getConfig();
 
 // const debug = require('debug')('dicoapp:utils:barter-dex-api');
 

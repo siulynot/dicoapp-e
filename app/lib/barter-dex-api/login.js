@@ -1,8 +1,6 @@
 // @flow
-import getConfig from '../config';
+import config from '../config';
 import type { StateType } from './schema';
-
-const config = getConfig();
 
 export default function loginFactory(
   state: StateType,

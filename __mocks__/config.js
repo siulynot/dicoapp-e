@@ -1,4 +1,4 @@
-module.exports = () => ({
+module.exports = {
   get(path) {
     if (path === 'barterdex') return 'http://127.0.0.1:7783';
     if (path === 'paths')
@@ -6,4 +6,4 @@ module.exports = () => ({
         homeDir: 'homeDir'
       };
   }
-});
+};
