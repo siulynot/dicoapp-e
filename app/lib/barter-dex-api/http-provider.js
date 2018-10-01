@@ -1,7 +1,7 @@
 // @flow
 import axios, { CancelToken } from 'axios';
 import { CANCEL } from 'redux-saga';
-import config from '../config';
+import getConfig from '../config';
 import type { StateType } from './schema';
 
 function toError(error) {
@@ -17,6 +17,8 @@ const headers = {
 };
 
 const TIMEOUT = 300000; // 5 min
+
+const config = getConfig();
 
 export default function httpProvider(
   state: StateType,

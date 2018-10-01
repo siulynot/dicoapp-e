@@ -3,8 +3,6 @@ import { makeSelectBalanceList as makeSelectBalanceListApp } from '../App/select
 import getConfig from '../../utils/config';
 import { APP_STATE_NAME } from './constants';
 
-console.log(getConfig);
-
 const config = getConfig();
 
 const COIN_BASE = config.get('marketmaker.tokenconfig');
