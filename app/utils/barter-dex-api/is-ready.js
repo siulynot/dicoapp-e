@@ -1,0 +1,29 @@
+// @flow
+
+// https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#listtransactions
+// import type { StateType } from './schema';
+
+const TIMEOUT = 10000;
+
+// export default function isReadyFactory(state: StateType) {
+export default function isReadyFactory() {
+  return {
+    isready() {
+      return new Promise((resolve, reject) => {
+        const interval = setInterval(async () => {
+          try {
+            await this.get();
+            clearInterval(interval);
+            resolve('OK');
+            // eslint-disable-next-line no-empty
+          } catch (_) {}
+        }, 100);
+
+        setTimeout(() => {
+          clearInterval(interval);
+          reject(new Error('Giving up trying to connect to marketmaker'));
+        }, TIMEOUT);
+      });
+    }
+  };
+}
