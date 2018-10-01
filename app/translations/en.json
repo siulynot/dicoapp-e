@@ -1,9 +1,13 @@
 {
-  "dicoapp.containers.LoginPage.title": "Buy",
-  "dicoapp.containers.LoginPage.currency": "Currency",
-  "dicoapp.containers.LoginPage.payment": "Payment Method",
-  "dicoapp.containers.LoginPage.amount": "Amount",
+  "dicoapp.containers.BuyPage.title": "Buy",
+  "dicoapp.containers.BuyPage.currency": "Currency",
+  "dicoapp.containers.BuyPage.payment": "Payment Method",
+  "dicoapp.containers.BuyPage.amount": "Amount",
   "dicoapp.containers.Drawer.wallet": "Wallet",
   "dicoapp.containers.Drawer.buy": "Buy",
-  "dicoapp.containers.Drawer.help": "Help"
+  "dicoapp.containers.Drawer.help": "Help",
+  "dicoapp.containers.Wallet.title": "Wallet",
+  "dicoapp.containers.Wallet.overview": "Overview",
+  "dicoapp.containers.Wallet.deposit_address": "Your deposit address",
+  "dicoapp.containers.Wallet.last_transactions": "Last Transactions"
 }

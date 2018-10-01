@@ -138,7 +138,11 @@ class BuyPage extends Component<Props, State> {
     return (
       <React.Fragment>
         <MDCAppBar
-          title={<FormattedMessage id="dicoapp.containers.LoginPage.title" />}
+          title={
+            <FormattedMessage id="dicoapp.containers.BuyPage.title">
+              {(...content) => content}
+            </FormattedMessage>
+          }
         />
 
         <Grid container spacing={0} className={classes.container}>
@@ -151,7 +155,9 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                <FormattedMessage id="dicoapp.containers.LoginPage.currency" />
+                <FormattedMessage id="dicoapp.containers.BuyPage.currency">
+                  {(...content) => content}
+                </FormattedMessage>
               </Typography>
               {/* <Divider className={classes.hr} /> */}
 
@@ -166,7 +172,9 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                <FormattedMessage id="dicoapp.containers.LoginPage.payment" />
+                <FormattedMessage id="dicoapp.containers.BuyPage.payment">
+                  {(...content) => content}
+                </FormattedMessage>
               </Typography>
               <IconButton
                 aria-label="Reload prices"
@@ -191,7 +199,9 @@ class BuyPage extends Component<Props, State> {
                 gutterBottom
                 className={classes.cardContent__title}
               >
-                <FormattedMessage id="dicoapp.containers.LoginPage.amount" />
+                <FormattedMessage id="dicoapp.containers.BuyPage.amount">
+                  {(...content) => content}
+                </FormattedMessage>
               </Typography>
               {/* <Divider className={classes.hr} /> */}
               <AmountSection paymentCoin={paymentCoin} />

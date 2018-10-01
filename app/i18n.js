@@ -8,7 +8,7 @@ const viTranslationMessages = require('./translations/vi.json');
 addLocaleData(enLocaleData);
 addLocaleData(viLocaleData);
 
-const DEFAULT_LOCALE = 'en';
+const DEFAULT_LOCALE = 'vi';
 
 // prettier-ignore
 const appLocales = [
