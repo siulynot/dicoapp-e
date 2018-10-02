@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -174,11 +175,15 @@ class LoginPage extends Component<Props, State> {
                 className={classes.loginContainer__item}
                 gutterBottom
               >
-                Welcome to dICO App
+                <FormattedMessage id="dicoapp.containers.LoginPage.headline">
+                  {(...content) => content}
+                </FormattedMessage>
               </Typography>
 
               <Typography variant="subheading" gutterBottom>
-                Please type in your Seed to Login to your existing Account
+                <FormattedMessage id="dicoapp.containers.LoginPage.subheading">
+                  {(...content) => content}
+                </FormattedMessage>
               </Typography>
 
               <Passphrase
@@ -200,7 +205,9 @@ class LoginPage extends Component<Props, State> {
                   classes.loginContainer__loginButton
                 )}
               >
-                Log In
+                <FormattedMessage id="dicoapp.containers.LoginPage.submit">
+                  {(...content) => content}
+                </FormattedMessage>
               </Button>
             </CardContent>
 
@@ -209,7 +216,9 @@ class LoginPage extends Component<Props, State> {
               className={classes.loginContainer__bottomButton}
               onClick={this.gotoSeedPage}
             >
-              Click Here to Create a New Account
+              <FormattedMessage id="dicoapp.containers.LoginPage.new_account">
+                {(...content) => content}
+              </FormattedMessage>
             </Button>
           </Card>
         </div>

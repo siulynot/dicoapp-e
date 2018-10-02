@@ -9,5 +9,10 @@
   "dicoapp.containers.Wallet.title": "Ví",
   "dicoapp.containers.Wallet.overview": "Tổng quan",
   "dicoapp.containers.Wallet.deposit_address": "Địa chỉ nạp",
-  "dicoapp.containers.Wallet.last_transactions": "Giao dịch gần nhất"
+  "dicoapp.containers.Wallet.last_transactions": "Giao dịch gần nhất",
+  "dicoapp.containers.HelpPage.title": "Giúp đỡ",
+  "dicoapp.containers.LoginPage.headline": "Chào mừng đến với dICO App",
+  "dicoapp.containers.LoginPage.subheading": "Xin hãy điền mã Seed của bạn để đăng nhập vào tài khoản",
+  "dicoapp.containers.LoginPage.submit": "Đăng nhập",
+  "dicoapp.containers.LoginPage.new_account": "Tạo tài khoản mới"
 }

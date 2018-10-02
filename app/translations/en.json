@@ -9,5 +9,10 @@
   "dicoapp.containers.Wallet.title": "Wallet",
   "dicoapp.containers.Wallet.overview": "Overview",
   "dicoapp.containers.Wallet.deposit_address": "Your deposit address",
-  "dicoapp.containers.Wallet.last_transactions": "Last Transactions"
+  "dicoapp.containers.Wallet.last_transactions": "Last Transactions",
+  "dicoapp.containers.HelpPage.title": "Help",
+  "dicoapp.containers.LoginPage.headline": "Welcome to dICO App",
+  "dicoapp.containers.LoginPage.subheading": "Please type in your Seed to Login to your existing Account",
+  "dicoapp.containers.LoginPage.submit": "Log In",
+  "dicoapp.containers.LoginPage.new_account": "Click Here to Create a New Account"
 }
