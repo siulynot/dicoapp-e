@@ -14,5 +14,10 @@
   "dicoapp.containers.LoginPage.headline": "Welcome to dICO App",
   "dicoapp.containers.LoginPage.subheading": "Please type in your Seed to Login to your existing Account",
   "dicoapp.containers.LoginPage.submit": "Log In",
-  "dicoapp.containers.LoginPage.new_account": "Click Here to Create a New Account"
+  "dicoapp.containers.LoginPage.new_account": "Click Here to Create a New Account",
+  "dicoapp.containers.SeedPage.title": "Generate a new Passphrase/Seed",
+  "dicoapp.containers.SeedPage.bottom_button": "Back to Log in",
+  "dicoapp.containers.SeedPage.Passphrase.generate": "Generate",
+  "dicoapp.containers.SeedPage.Passphrase.copy_seed": "Copy Seed to clipboard",
+  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Reveal private WIF key"
 }

@@ -1,6 +1,5 @@
 // @flow
 
-// https://docs.komodoplatform.com/barterDEX/barterDEX-API.html?highlight=listunspent#listtransactions
 // import type { StateType } from './schema';
 
 const TIMEOUT = 10000;

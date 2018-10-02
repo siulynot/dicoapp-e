@@ -14,5 +14,10 @@
   "dicoapp.containers.LoginPage.headline": "Chào mừng đến với dICO App",
   "dicoapp.containers.LoginPage.subheading": "Xin hãy điền mã Seed của bạn để đăng nhập vào tài khoản",
   "dicoapp.containers.LoginPage.submit": "Đăng nhập",
-  "dicoapp.containers.LoginPage.new_account": "Tạo tài khoản mới"
+  "dicoapp.containers.LoginPage.new_account": "Tạo tài khoản mới",
+  "dicoapp.containers.SeedPage.title": "Sinh ra một Passphrase/Seed mới",
+  "dicoapp.containers.SeedPage.bottom_button": "Quay trở lại Đăng nhập",
+  "dicoapp.containers.SeedPage.Passphrase.generate": "Tạo mới",
+  "dicoapp.containers.SeedPage.Passphrase.copy_seed": "Sao chép Seed",
+  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Hiển thị mã WIF"
 }

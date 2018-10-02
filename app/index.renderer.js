@@ -40,7 +40,7 @@ const render = (AppComponent, messages) => {
 };
 
 if (module.hot) {
-  module.hot.accept(['./containers/Routes'], () => {
+  module.hot.accept(['./i18n', './containers/Routes'], () => {
     // ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     // render();
     const NextRoot = require('./containers/Routes'); // eslint-disable-line global-require
@@ -56,7 +56,7 @@ if (!window.Intl) {
     .then(() =>
       Promise.all([
         import('intl/locale-data/jsonp/en.js'),
-        import('intl/locale-data/jsonp/de.js')
+        import('intl/locale-data/jsonp/vi.js')
       ])
     )
     .then(() => render(Routes, translationMessages))
