@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -101,7 +102,8 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   error: Object | boolean,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchLogin: Function
+  dispatchLogin: Function,
+  intl: IntlShape
 };
 
 type State = {
@@ -116,9 +118,16 @@ class LoginPage extends Component<Props, State> {
   };
 
   componentDidUpdate = prevProps => {
-    const { authenticated, error, history } = this.props;
+    const { authenticated, error, history, intl } = this.props;
     if (authenticated && !prevProps.authenticated) {
-      swal('Success', 'Welcome to the GLX dICO Wallet!', 'success');
+      swal(
+        'Success',
+        intl.formatMessage({
+          defaultMessage: 'Login Successful Message',
+          id: 'dicoapp.containers.LoginPage.login_successful_message'
+        }),
+        'success'
+      );
       history.push('/buy');
     }
     if (!authenticated && error) {
@@ -250,6 +259,7 @@ const LoginPageWapper = compose(
   withReducer,
   withSaga,
   withConnect,
+  injectIntl,
   withStyles(styles)
 )(LoginPage);
 
