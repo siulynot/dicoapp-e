@@ -19,5 +19,9 @@
   "dicoapp.containers.SeedPage.bottom_button": "Back to Log in",
   "dicoapp.containers.SeedPage.Passphrase.generate": "Generate",
   "dicoapp.containers.SeedPage.Passphrase.copy_seed": "Copy Seed to clipboard",
-  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Reveal private WIF key"
+  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Reveal private WIF key",
+  "dicoapp.containers.LogoutDialog.title": "Logout!",
+  "dicoapp.containers.LogoutDialog.description": "Are you sure you want to logout?",
+  "dicoapp.containers.LogoutDialog.cancel": "Cancel",
+  "dicoapp.containers.LogoutDialog.submit": "Ok"
 }

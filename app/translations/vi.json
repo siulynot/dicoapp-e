@@ -19,5 +19,9 @@
   "dicoapp.containers.SeedPage.bottom_button": "Quay trở lại Đăng nhập",
   "dicoapp.containers.SeedPage.Passphrase.generate": "Tạo mới",
   "dicoapp.containers.SeedPage.Passphrase.copy_seed": "Sao chép Seed",
-  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Hiển thị mã WIF"
+  "dicoapp.containers.SeedPage.Passphrase.reveal_wif": "Hiển thị mã WIF",
+  "dicoapp.containers.LogoutDialog.title": "Đăng xuất!",
+  "dicoapp.containers.LogoutDialog.description": "Bạn có chắc chắn muốn đăng xuất?",
+  "dicoapp.containers.LogoutDialog.cancel": "Không",
+  "dicoapp.containers.LogoutDialog.submit": "Có"
 }
